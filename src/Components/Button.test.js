@@ -11,7 +11,18 @@ describe('Button Component', () => {
 
     it('render 1 button before button click', () => {
         const { getAllByTestId } = render(<Button />);
-        const buttonList = get
+        const buttonList = getAllByTestId('button');
+        expect(buttonList).toHaveLength(1);
+    });
+
+    it('render 2 button after button click', async () => {
+        await act(async () => {
+            const { getAllByTestId } = render(<Button />);
+            const buttonList = getAllByTestId('button');
+            await fireEvent.click(buttonList[0]);
+            expect(getAllByTestId('button')).toHaveLength(2);
+        })
+
     });
 
 });
